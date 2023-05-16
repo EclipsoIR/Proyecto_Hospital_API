@@ -47,7 +47,7 @@ namespace Business
         {
             if (await GetByIdAsync(hospital.Id)!=null) 
             {
-                //return await EditAsync(hospital.);
+                return await EditAsync(hospital);
             }
             return await AddAsync(hospital);
         }
@@ -59,9 +59,9 @@ namespace Business
             return hospital;
         }
 
-        public async Task<Hospital> EditAsync (Hospital hospital,Guid id)
+        public async Task<Hospital> EditAsync (Hospital hospital)
         {
-            Hospital hospitalOld = await GetByIdAsync(id);
+            Hospital hospitalOld = await GetByIdAsync(hospital.Id);
             hospitalOld.Nombre = hospital.Nombre;
             hospitalOld.CantTrabajadores = hospital.CantTrabajadores;
             hospitalOld.Especialidades = hospital.Especialidades;

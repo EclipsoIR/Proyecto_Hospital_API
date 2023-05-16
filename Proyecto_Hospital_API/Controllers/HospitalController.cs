@@ -68,15 +68,15 @@ namespace Proyecto_Hospital_API.Controllers
             return Ok(resultMap);
         }
 
-        [HttpPut("EditHospital/{id}")]
-        [ProducesResponseType(typeof(HospitalMiniDTO), StatusCodes.Status200OK)]
+        //[HttpPut("EditHospital/{id}")]
+        //[ProducesResponseType(typeof(HospitalMiniDTO), StatusCodes.Status200OK)]
 
-        public async Task<IActionResult> editHospital([FromBody] HospitalPutDTO hospital, Guid id)
-        {
-            var result = await hospitalSV.EditAsync(mapper.Map<Hospital>(hospital), id);
-            var resultMap = mapper.Map<HospitalMiniDTO>(result);
-            return Ok(resultMap);
-        }
+        //public async Task<IActionResult> editHospital([FromBody] HospitalPutDTO hospital, Guid id)
+        //{
+        //    var result = await hospitalSV.EditAsync(mapper.Map<Hospital>(hospital), id);
+        //    var resultMap = mapper.Map<HospitalMiniDTO>(result);
+        //    return Ok(resultMap);
+        //}
 
 
         [HttpGet("GetPacientesMedicosActuales")]
