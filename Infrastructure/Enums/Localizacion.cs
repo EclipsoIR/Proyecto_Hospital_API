@@ -9,11 +9,8 @@ namespace Infrastructure.Enums
 {
     public enum Localizacion
     {
-        [Description("España")]
         espana,
-        [Description("portugal")]
         portugal,
-        [Description("francia")]
         francia
     }
 }

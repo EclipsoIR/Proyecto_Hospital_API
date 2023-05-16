@@ -21,6 +21,9 @@ namespace Infrastructure.Mapper.Profiles
                 .ReverseMap();
             CreateMap<HospitalDTO, HospitalMiniDTO>()
                 .ReverseMap();
+            CreateMap<HospitalPutDTO, Hospital>()
+                .ForMember(dst => dst.Localizacion, options => options.MapFrom(src => src.Localizacion.ToString()))
+                .ReverseMap();
         }
     }
 }

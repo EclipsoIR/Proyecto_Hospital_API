@@ -47,7 +47,7 @@ namespace Business
         {
             if (await GetByIdAsync(hospital.Id)!=null) 
             {
-                return await EditAsync(hospital);
+                //return await EditAsync(hospital.);
             }
             return await AddAsync(hospital);
         }
@@ -59,22 +59,18 @@ namespace Business
             return hospital;
         }
 
-        public async Task<Hospital> EditAsync (Hospital hospital)
+        public async Task<Hospital> EditAsync (Hospital hospital,Guid id)
         {
-            Hospital hospitalOld = await GetByIdAsync(hospital.Id);
+            Hospital hospitalOld = await GetByIdAsync(id);
             hospitalOld.Nombre = hospital.Nombre;
             hospitalOld.CantTrabajadores = hospital.CantTrabajadores;
             hospitalOld.Especialidades = hospital.Especialidades;
             hospitalOld.Capacidad = hospital.Capacidad;
             hospitalOld.Especialidades = hospital.Especialidades;
+            hospitalOld.Localizacion = hospital.Localizacion;
             db.SaveChanges();
             return hospitalOld;
         }
-
-
-
-
-
 
         public async Task<List<HospitalMiniDTO>> GetPacientesMedicosActuales()
         {
