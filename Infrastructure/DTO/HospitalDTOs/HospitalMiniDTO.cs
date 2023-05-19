@@ -27,4 +27,5 @@ namespace Infrastructure.DTO.HospitalDTOs
 
         public int PacientesActuales { get; set; }
     }
+
 }

@@ -21,6 +21,8 @@ namespace Infrastructure.Mapper.Profiles
                 .ReverseMap();
             CreateMap<PersonaDTO, PersonaMiniDTO>()
                 .ReverseMap();
+            CreateMap<DataTableDTO, PersonaMiniDTO>()
+                .ReverseMap();
         }
     }
 }

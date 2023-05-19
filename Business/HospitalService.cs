@@ -79,6 +79,7 @@ namespace Business
                             //join p in db.Paciente on h.Id equals p.HospitalId
                             select new HospitalMiniDTO
                             {
+                                
                                 Id = h.Id,
                                 Nombre = h.Nombre,
                                 Capacidad = h.Capacidad,

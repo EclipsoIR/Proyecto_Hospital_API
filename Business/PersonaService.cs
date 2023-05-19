@@ -1,4 +1,6 @@
-﻿using Data;
+﻿using AutoMapper;
+using Data;
+using Infrastructure.DTO.PersonaDTOs;
 using Infrastructure.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -12,10 +14,12 @@ namespace Business
     public class PersonaService
     {
         private AppDbContext db;
+        private IMapper mapper;
 
-        public PersonaService(AppDbContext db)
+        public PersonaService(AppDbContext db, IMapper _mapper)
         {
             this.db = db;
+            this.mapper = _mapper;
         }
 
 
@@ -31,12 +35,53 @@ namespace Business
             return await db.Persona.ToListAsync();
         }
 
+        public async Task<List<PersonaMiniDTO>> GetListAsyncForPage()
+        {
+            var resultado =  await db.Persona.ToListAsync();
+            var reusltadoMAp = mapper.Map<List<PersonaMiniDTO>>(resultado);
+            return reusltadoMAp;
+        }
+
+
+
+
         public async Task<Persona> DeleteAsync(Guid id)
         {
             var personaOld = await GetByIdAsync(id);
             db.Remove(personaOld);
             db.SaveChanges();
             return personaOld;
+        }
+
+
+        public async Task<DataTableDTO> GetPersonListPerPage(int page)
+        {
+            var max = 6 * page;
+            var min = max - 6;
+
+            var personList = await GetListAsyncForPage();
+
+            
+            int totalPages = (int) Math.Truncate(Convert.ToDecimal(personList.Count()/6))+1;
+
+            if (page == totalPages)
+            {
+                max = personList.Count();
+
+            }
+
+            return new DataTableDTO(page, totalPages, personaMiniDTOs(min, max, personList));
+
+        }
+
+        private List<PersonaMiniDTO> personaMiniDTOs(int min, int max, List<PersonaMiniDTO> data)
+        {
+            var result = new List<PersonaMiniDTO>();
+            for (int i = min; i < max; i++)
+            {
+                    result.Add(data[i]);
+            }
+            return result;
         }
 
 

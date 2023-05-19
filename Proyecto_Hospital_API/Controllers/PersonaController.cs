@@ -14,6 +14,7 @@ namespace Proyecto_Hospital_API.Controllers
     {
 
         private readonly ILogger<PersonaController> _logger;
+
         private IMapper mapper;
 
         private readonly AppDbContext db;
@@ -25,7 +26,7 @@ namespace Proyecto_Hospital_API.Controllers
             _logger = logger;
             mapper = _mapper;
             db = _db;
-            personaSV = new PersonaService(db);
+            personaSV = new PersonaService(db, _mapper);
         }
 
 
@@ -73,6 +74,14 @@ namespace Proyecto_Hospital_API.Controllers
 
 
 
+        [HttpGet("TablePersonaTable")]
+        [ProducesResponseType(typeof(DataTableDTO), StatusCodes.Status200OK)]
+
+        public async Task<IActionResult> GetDataTable(int page)
+        {
+            var result = await personaSV.GetPersonListPerPage(page);
+            return Ok(result);
+        }
 
 
 
