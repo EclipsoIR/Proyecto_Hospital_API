@@ -41,10 +41,10 @@ namespace Proyecto_Hospital_API.Controllers
             return Ok(resultMap);
         }
 
-        [HttpPost("GetPersonaById")]
+        [HttpGet("GetPersonaById/{id}")]
         [ProducesResponseType(typeof(PersonaMiniDTO), StatusCodes.Status200OK)]
 
-        public async Task<IActionResult> GetPersonaById([FromBody] Guid id)
+        public async Task<IActionResult> GetPersonaById(Guid id)
         {
             var result = await personaSV.GetByIdAsync(id);
             var resultMap = mapper.Map<PersonaMiniDTO>(result);
