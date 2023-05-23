@@ -35,14 +35,37 @@ namespace Business
             return await db.Persona.ToListAsync();
         }
 
+
+        //ESTA ES LA QUE FUNCIONA 
+        //public async Task<List<PersonaMiniDTO>> GetListAsyncForPage()
+        //{
+        //    var resultado =  await db.Persona.ToListAsync();
+            
+        //    var reusltadoMAp = mapper.Map<List<PersonaMiniDTO>>(resultado);
+        //    return reusltadoMAp;
+        //}
+
         public async Task<List<PersonaMiniDTO>> GetListAsyncForPage()
         {
-            var resultado =  await db.Persona.ToListAsync();
-            var reusltadoMAp = mapper.Map<List<PersonaMiniDTO>>(resultado);
+            var listPersonas = mapper.Map<List<PersonaMiniDTO>>(await db.Persona.ToListAsync());
+
+
+            var listPatient = await db.Paciente.ToListAsync();
+
+            foreach (var persona in listPersonas)
+            {
+                if(listPatient.Where(x => x.PersonaId == persona.Id).FirstOrDefault() != null)
+                {
+                    persona.IsPatient = true;
+                }
+
+            }
+
+
+
+            var reusltadoMAp = mapper.Map<List<PersonaMiniDTO>>(listPersonas);
             return reusltadoMAp;
         }
-
-
 
 
         public async Task<Persona> DeleteAsync(Guid id)

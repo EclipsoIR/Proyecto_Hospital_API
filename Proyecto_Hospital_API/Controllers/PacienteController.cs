@@ -5,6 +5,8 @@ using Infrastructure.DTO.AreaDTOs;
 using Infrastructure.DTO.PacienteDTOs;
 using Infrastructure.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 namespace Proyecto_Hospital_API.Controllers
 {
@@ -67,7 +69,8 @@ namespace Proyecto_Hospital_API.Controllers
                 var resultadoBuenoMap = mapper.Map<PacienteMiniDTO>(resultadoBueno);
                 return Ok(resultadoBuenoMap);
             }
-            return BadRequest();
+
+            return BadRequest(JsonSerializer.Serialize(resultado));
         }
 
 

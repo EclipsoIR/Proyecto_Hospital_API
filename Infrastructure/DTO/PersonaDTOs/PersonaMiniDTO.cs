@@ -6,6 +6,7 @@ using System.Text;
 using Infrastructure.Enums;
 
 using System.Threading.Tasks;
+using System.Diagnostics.SymbolStore;
 
 namespace Infrastructure.DTO.PersonaDTOs
 {
@@ -22,5 +23,11 @@ namespace Infrastructure.DTO.PersonaDTOs
         public int Edad { get; set; }
 
         public EstadosPersonasType Estado { get; set; }
+
+        public bool IsPatient { get; set; }
+
+        public PersonaMiniDTO() { 
+            IsPatient= false;
+        }
     }
 }
