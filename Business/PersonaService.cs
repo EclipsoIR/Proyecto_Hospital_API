@@ -81,18 +81,24 @@ namespace Business
         {
             var max = 6 * page;
             var min = max - 6;
+            int totalPages = 0;
 
             var personList = await GetListAsyncForPage();
+           
+            if (personList.Count() % 6 == 0)
+            {
+                totalPages = personList.Count() / 6;
+            }
+            else
+            {
+                 totalPages = (int)Math.Truncate(Convert.ToDecimal(personList.Count() / 6)) + 1;
 
-            
-            int totalPages = (int) Math.Truncate(Convert.ToDecimal(personList.Count()/6))+1;
+            }
 
             if (page == totalPages)
             {
                 max = personList.Count();
-
             }
-
             return new DataTableDTO(page, totalPages, personaMiniDTOs(min, max, personList));
 
         }
